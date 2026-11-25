@@ -5,10 +5,15 @@ import type { AuthGateway, AuthSession, LoginInput, UserProfile } from './types'
 import { TokenStore } from './token-store'
 
 const envSchema = z.object({
-  VITE_MOCK_EMAIL: z.string().email(),
-  VITE_MOCK_PASSWORD: z.string().min(8),
-  VITE_MOCK_NAME: z.string().min(1),
-  VITE_MOCK_ACCESS_TOKEN: z.string().min(10),
+  VITE_MOCK_EMAIL: z.string().email().default('demo@tree.tw'),
+  VITE_MOCK_PASSWORD: z.string().min(8).default('TreeDemo123!'),
+  VITE_MOCK_NAME: z.string().min(1).default('示範盤點員'),
+  VITE_MOCK_ACCESS_TOKEN: z
+    .string()
+    .min(10)
+    .default(
+      'eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJzdWIiOiJkZW1vLXVzZXIiLCJlbWFpbCI6ImRlbW9AdHJlZS50dyIsIm5hbWUiOiLnpLrnr4Tnm6Tpu57lk6EiLCJpYXQiOjE3NjM4NTYwMDAsImV4cCI6MjE0NzQ4MzY0N30.mock-signature',
+    ),
 })
 
 const PROFILE_KEY = 'tree-inventory.profile'
