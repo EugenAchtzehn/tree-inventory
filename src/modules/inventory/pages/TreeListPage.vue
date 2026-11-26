@@ -22,23 +22,24 @@ const date = (value: string) => new Intl.DateTimeFormat('zh-TW', { dateStyle: 'm
       <Message v-else-if="inventory.error" severity="error">{{ inventory.error }}</Message>
       <Card v-else-if="!inventory.trees.length" class="text-center">
         <template #content>
-          <img :src="treeMarkUrl" alt="" class="mx-auto mb-5 size-20 rounded-3xl opacity-80" />
-          <h2 class="text-xl font-bold">尚未有盤點紀錄</h2>
-          <p class="text-slate-500">回到地圖，點擊左上角的小樹開始第一筆盤點。</p>
+          <img :src="treeMarkUrl" alt="" class="mx-auto mb-5 size-16 border border-[#dedede] opacity-80" />
+          <h2 class="text-xl font-semibold">尚未有盤點紀錄</h2>
+          <p class="text-[#6b6b6b]">回到地圖，點擊左上角的「新增盤點」開始第一筆紀錄。</p>
           <Button as="router-link" to="/map" label="前往盤點地圖" icon="pi pi-map" />
         </template>
       </Card>
-      <div v-else class="grid gap-3">
-        <Card v-for="tree in inventory.trees" :key="tree.id">
+      <div v-else class="grid gap-px border border-[#d4d4d4] bg-[#d4d4d4] shadow-sm">
+        <Card v-for="tree in inventory.trees" :key="tree.id" class="!border-0 !shadow-none">
           <template #content>
             <div class="flex gap-4">
-              <div class="grid size-12 shrink-0 place-items-center rounded-2xl bg-[#e4edc8] text-2xl">🌳</div>
+              <div class="grid size-11 shrink-0 place-items-center bg-[#eaf5e7] text-xl">🌳</div>
               <div class="min-w-0 flex-1">
-                <h2 class="m-0 text-lg font-extrabold">{{ tree.species.name }}</h2>
-                <p class="my-1 text-sm text-slate-500">{{ date(tree.observedAt) }}</p>
-                <p class="mb-0 mt-3 text-sm">胸圍 {{ tree.circumferenceCm }} cm · 樹高 {{ tree.heightM }} m</p>
+                <p class="calcite-eyebrow">Observation</p>
+                <h2 class="m-0 text-lg font-semibold">{{ tree.species.name }}</h2>
+                <p class="my-1 text-sm text-[#6b6b6b]">{{ date(tree.observedAt) }}</p>
+                <p class="mb-0 mt-2 text-sm text-[#4a4a4a]">胸圍 {{ tree.circumferenceCm }} cm · 樹高 {{ tree.heightM }} m</p>
               </div>
-              <Button as="router-link" :to="`/trees/${tree.id}`" icon="pi pi-chevron-right" aria-label="查看詳細資料" rounded text />
+              <Button as="router-link" :to="`/trees/${tree.id}`" icon="pi pi-chevron-right" aria-label="查看詳細資料" text />
             </div>
           </template>
         </Card>

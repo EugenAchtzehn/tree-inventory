@@ -35,11 +35,11 @@ function ensureOperationalLayers() {
     map.addSource('trees', { type: 'geojson', data: treeCollection() })
     map.addLayer({
       id: 'tree-halo', type: 'circle', source: 'trees',
-      paint: { 'circle-radius': 15, 'circle-color': '#f8f7f0', 'circle-stroke-color': '#173f35', 'circle-stroke-width': 2 },
+      paint: { 'circle-radius': 14, 'circle-color': '#ffffff', 'circle-stroke-color': '#004874', 'circle-stroke-width': 2 },
     })
     map.addLayer({
       id: 'trees', type: 'circle', source: 'trees',
-      paint: { 'circle-radius': 9, 'circle-color': '#6f9f3d' },
+      paint: { 'circle-radius': 8, 'circle-color': '#288835' },
     })
     map.on('click', 'trees', (event) => {
       const id = event.features?.[0]?.properties?.id as string | undefined
@@ -187,14 +187,15 @@ onBeforeUnmount(() => {
 .user-heading { position: absolute; inset: 0; transform-origin: 50% 50%; transition: transform 80ms linear; }
 .user-heading span { position: absolute; left: 19px; top: -21px; width: 16px; height: 38px; background: linear-gradient(#1c78ff, transparent); clip-path: polygon(50% 0, 100% 100%, 50% 70%, 0 100%); }
 .user-dot { position: absolute; left: 17px; top: 17px; width: 20px; height: 20px; border: 4px solid white; border-radius: 50%; background: #1c78ff; box-shadow: 0 2px 10px #0005; }
-.draft-tree-marker { width: 50px; height: 50px; padding: 0; border: 4px solid white; border-radius: 17px; background: white; box-shadow: 0 7px 20px #173f3566; cursor: grab; }
+.draft-tree-marker { width: 48px; height: 48px; padding: 0; border: 3px solid white; border-radius: 2px; background: white; box-shadow: 0 2px 8px #0006; cursor: grab; }
 .draft-tree-marker:active { cursor: grabbing; }
-.draft-tree-marker img { display: block; width: 100%; height: 100%; border-radius: 12px; }
-.draft-popup { min-width: 220px; color: #173f35; }
+.draft-tree-marker img { display: block; width: 100%; height: 100%; }
+.draft-popup { min-width: 220px; color: #141414; }
 .draft-popup strong { font-size: 1rem; }
-.draft-popup p { margin: .45rem 0 1rem; color: #5c6c66; line-height: 1.45; font-size: .875rem; }
+.draft-popup p { margin: .45rem 0 1rem; color: #6b6b6b; line-height: 1.45; font-size: .875rem; }
 .draft-popup-actions { display: flex; justify-content: flex-end; gap: .5rem; }
-.draft-popup-actions button { min-height: 40px; border: 0; border-radius: 12px; padding: 0 .9rem; font-weight: 700; cursor: pointer; }
-.draft-action-primary { color: white; background: #1f6f54; }
-.draft-action-secondary { color: #40524b; background: #edf1ec; }
+.draft-popup-actions button { min-height: 36px; border: 1px solid transparent; border-radius: 2px; padding: 0 .9rem; font-weight: 600; cursor: pointer; }
+.draft-action-primary { color: white; background: #007ac2; }
+.draft-action-primary:hover { background: #00619b; }
+.draft-action-secondary { color: #4a4a4a; border-color: #d4d4d4 !important; background: #ffffff; }
 </style>

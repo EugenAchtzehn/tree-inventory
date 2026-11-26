@@ -46,9 +46,9 @@ function submit() {
 </script>
 
 <template>
-  <Drawer :visible="visible" position="bottom" class="!h-[min(82dvh,46rem)] !rounded-t-[2rem]" @update:visible="emit('update:visible', $event)" @hide="!saving && emit('cancel')">
+  <Drawer :visible="visible" position="bottom" class="!h-[min(82dvh,46rem)] !border-t !border-[#bfbfbf]" @update:visible="emit('update:visible', $event)" @hide="!saving && emit('cancel')">
     <template #header>
-      <div><h2 class="m-0 text-xl font-black">樹木詳細資料</h2><p class="mb-0 mt-1 text-sm text-slate-500">座標已確認，完成核心盤點欄位</p></div>
+      <div><p class="calcite-eyebrow">New observation</p><h2 class="m-0 text-xl font-semibold">樹木詳細資料</h2><p class="mb-0 mt-1 text-sm text-[#6b6b6b]">座標已確認，完成核心盤點欄位</p></div>
     </template>
     <form class="mx-auto grid max-w-xl gap-4 pb-8" @submit.prevent="submit">
       <div class="field-stack">
@@ -61,7 +61,7 @@ function submit() {
         <div class="field-stack"><label for="height">樹高（m）</label><InputNumber id="height" v-model="form.heightM" :min-fraction-digits="0" :max-fraction-digits="1" fluid :invalid="!!errors.heightM" /><small class="field-error">{{ errors.heightM }}</small></div>
       </div>
       <div class="field-stack"><label for="notes">備註</label><Textarea id="notes" v-model="form.notes" rows="4" maxlength="500" auto-resize fluid /><small class="text-right text-xs text-slate-400">{{ form.notes.length }}/500</small></div>
-      <div v-if="point" class="rounded-2xl bg-slate-100 p-3 font-mono text-xs text-slate-600">{{ point.latitude.toFixed(6) }}, {{ point.longitude.toFixed(6) }}</div>
+      <div v-if="point" class="border-l-3 border-[#007ac2] bg-[#f2f2f2] p-3 font-mono text-xs text-[#4a4a4a]">{{ point.latitude.toFixed(6) }}, {{ point.longitude.toFixed(6) }}</div>
       <div class="sticky bottom-0 grid grid-cols-[1fr_2fr] gap-3 bg-white py-2 safe-bottom">
         <Button type="button" label="取消" severity="secondary" outlined :disabled="saving" @click="close" />
         <Button type="submit" label="完成盤點" icon="pi pi-check" :loading="saving" />

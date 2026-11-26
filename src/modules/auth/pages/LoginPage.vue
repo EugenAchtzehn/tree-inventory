@@ -44,10 +44,10 @@ async function submit() {
         <small class="field-error">{{ errors.password }}</small>
       </div>
       <Button type="submit" label="登入" icon="pi pi-sign-in" :loading="auth.loading" fluid />
-      <div class="rounded-2xl bg-[#e8eed8] p-4 text-sm leading-6">
-        <strong>Demo 帳號</strong><br />demo@tree.tw<br />TreeDemo123!
+      <div class="calcite-note text-sm leading-6">
+        <strong class="text-[#141414]"><i class="pi pi-info-circle mr-2 text-[#007ac2]" />Demo 帳號</strong><br />demo@tree.tw<br />TreeDemo123!
       </div>
-      <p class="m-0 text-center text-sm">還沒有帳號？ <RouterLink to="/register" class="font-bold text-emerald-800">前往註冊</RouterLink></p>
+      <p class="m-0 text-center text-sm text-[#4a4a4a]">還沒有帳號？ <RouterLink to="/register" class="font-semibold text-[#00619b]">前往註冊</RouterLink></p>
     </form>
   </AuthShell>
 </template>

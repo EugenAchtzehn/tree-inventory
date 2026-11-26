@@ -108,43 +108,48 @@ function handleMapReady() {
 </script>
 
 <template>
-  <main class="map-page relative h-dvh w-full overflow-hidden bg-slate-200">
+  <main class="map-page relative h-dvh w-full overflow-hidden bg-[#ebebeb]">
     <MapCanvas ref="mapRef" :basemap="basemap" :trees="inventory.trees" :position="location.position" @ready="handleMapReady" @draft-confirm="editDraft" @draft-cancel="draftPoint = null" @tree-select="router.push(`/trees/${$event}`)" />
 
-    <div class="absolute left-3 top-0 z-10 grid gap-3 safe-top">
-      <Button icon="pi pi-bars" aria-label="開啟功能選單" rounded severity="contrast" class="!size-12 !shadow-lg" @click="menuVisible = true" />
-      <button type="button" aria-label="新增樹木盤點" class="grid size-12 place-items-center rounded-full border-4 border-white bg-[#173f35] shadow-lg transition active:scale-95" @click="startTreePlacement">
-        <img :src="treeMarkUrl" alt="" class="size-9 rounded-full" />
+    <div class="absolute left-3 top-0 z-10 flex items-stretch border border-[#bfbfbf] bg-white shadow-md safe-top">
+      <Button icon="pi pi-bars" aria-label="開啟功能選單" severity="secondary" text class="!size-11 !rounded-none !border-r !border-[#dedede]" @click="menuVisible = true" />
+      <div class="hidden items-center gap-2 px-3 sm:flex">
+        <img :src="treeMarkUrl" alt="" class="size-7" />
+        <div><p class="m-0 text-sm font-semibold leading-4">森野盤點</p><p class="m-0 text-[10px] tracking-wider text-[#6b6b6b] uppercase">Field Map</p></div>
+      </div>
+      <button type="button" aria-label="新增樹木盤點" class="flex min-h-11 items-center gap-2 border-0 bg-[#007ac2] px-3 font-semibold text-white transition hover:bg-[#00619b] active:bg-[#004874]" @click="startTreePlacement">
+        <i class="pi pi-plus" /><span class="hidden text-sm sm:inline">新增盤點</span>
       </button>
     </div>
 
-    <div class="absolute right-3 top-0 z-10 flex rounded-2xl bg-white/95 p-1 shadow-lg backdrop-blur safe-top">
-      <button v-for="item in BASEMAPS" :key="item.id" type="button" class="min-h-10 rounded-xl px-3 text-sm font-bold transition" :class="basemap === item.id ? 'bg-[#173f35] text-white' : 'text-[#40524b]'" @click="basemap = item.id">{{ item.label }}</button>
+    <div class="absolute right-3 top-0 z-10 flex border border-[#bfbfbf] bg-white shadow-md safe-top" aria-label="底圖選擇">
+      <button v-for="item in BASEMAPS" :key="item.id" type="button" class="min-h-11 border-0 border-r border-[#dedede] px-3 text-sm font-semibold transition last:border-r-0" :class="basemap === item.id ? 'bg-[#e5f4fb] text-[#004874] shadow-[inset_0_-3px_0_#007ac2]' : 'bg-white text-[#4a4a4a] hover:bg-[#f2f2f2]'" @click="basemap = item.id">{{ item.label }}</button>
     </div>
 
     <div class="absolute bottom-5 left-1/2 z-10 w-[min(92%,26rem)] -translate-x-1/2 safe-bottom">
-      <Card v-if="permissionsPrompt" class="!rounded-3xl !shadow-2xl">
+      <Card v-if="permissionsPrompt" class="!shadow-lg">
         <template #content>
           <div class="flex items-start gap-3">
-            <div class="grid size-11 shrink-0 place-items-center rounded-2xl bg-[#e4edc8]"><i class="pi pi-compass text-xl" /></div>
-            <div class="min-w-0 flex-1"><h2 class="m-0 text-base font-black">啟用定位與朝向</h2><p class="mb-3 mt-1 text-sm leading-5 text-slate-500">用於顯示目前位置，並將新樹放在面向前方。</p><Button label="允許使用" icon="pi pi-map-marker" size="small" :loading="location.requesting" @click="location.enable" /></div>
+            <div class="grid size-10 shrink-0 place-items-center bg-[#e5f4fb] text-[#00619b]"><i class="pi pi-compass text-lg" /></div>
+            <div class="min-w-0 flex-1"><p class="calcite-eyebrow">Location</p><h2 class="m-0 text-base font-semibold">啟用定位與朝向</h2><p class="mb-3 mt-1 text-sm leading-5 text-[#6b6b6b]">用於顯示目前位置，並將新樹放在面向前方。</p><Button label="允許使用" icon="pi pi-map-marker" size="small" :loading="location.requesting" @click="location.enable" /></div>
           </div>
         </template>
       </Card>
       <Message v-else-if="location.error" severity="warn" :closable="false">{{ location.error }}</Message>
-      <div v-else class="mx-auto w-fit rounded-full bg-[#173f35]/90 px-4 py-2 text-sm font-semibold text-white shadow-lg backdrop-blur">{{ locationLabel }}</div>
+      <div v-else class="mx-auto flex w-fit items-center gap-2 border border-[#bfbfbf] bg-white/95 px-3 py-2 text-xs font-semibold text-[#4a4a4a] shadow-md backdrop-blur"><span class="size-2 rounded-full bg-[#288835]" />{{ locationLabel }}</div>
     </div>
 
     <div v-if="inventory.loading" class="absolute inset-0 z-20 grid place-items-center bg-white/45 backdrop-blur-sm"><ProgressSpinner /></div>
 
     <Drawer v-model:visible="menuVisible" header="森野盤點" class="!w-[min(86vw,22rem)]">
-      <div class="mb-6 flex items-center gap-3 rounded-2xl bg-[#eef2e1] p-4">
-        <div class="grid size-11 place-items-center rounded-full bg-[#b6d46b] text-lg font-black">{{ auth.user?.name.slice(0, 1) }}</div>
-        <div><p class="m-0 font-bold">{{ auth.user?.name }}</p><p class="m-0 text-sm text-slate-500">{{ auth.user?.email }}</p></div>
+      <p class="calcite-eyebrow">Field Operations</p>
+      <div class="mb-5 flex items-center gap-3 border-y border-[#dedede] bg-[#f7f7f7] p-4">
+        <div class="grid size-10 place-items-center rounded-full bg-[#d6effc] text-base font-semibold text-[#004874]">{{ auth.user?.name.slice(0, 1) }}</div>
+        <div><p class="m-0 font-semibold">{{ auth.user?.name }}</p><p class="m-0 text-sm text-[#6b6b6b]">{{ auth.user?.email }}</p></div>
       </div>
       <nav class="grid gap-2" aria-label="主要功能">
-        <Button as="router-link" to="/account" label="帳戶管理" icon="pi pi-user" severity="secondary" text class="!justify-start" @click="menuVisible = false" />
-        <Button as="router-link" to="/trees" label="已盤點樹木" icon="pi pi-list" severity="secondary" text class="!justify-start" @click="menuVisible = false" />
+        <Button as="router-link" to="/account" label="帳戶管理" icon="pi pi-user" severity="secondary" text class="!justify-start !rounded-none" @click="menuVisible = false" />
+        <Button as="router-link" to="/trees" label="已盤點樹木" icon="pi pi-list" severity="secondary" text class="!justify-start !rounded-none" @click="menuVisible = false" />
         <Button label="登出" icon="pi pi-sign-out" severity="danger" text class="!mt-4 !justify-start" @click="logout" />
       </nav>
     </Drawer>
