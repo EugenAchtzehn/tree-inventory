@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@primeuix/themes": "^1.2.5",
+    "font-gis": "^1.0.6",
     "maplibre-gl": "^6.19.0",
     "pinia": "^3.0.4",
     "primeicons": "^7.0.0",

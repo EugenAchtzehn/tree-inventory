@@ -72,7 +72,7 @@ function updateUser() {
   if (!userMarker) {
     const element = document.createElement('div')
     element.className = 'user-location-marker'
-    element.innerHTML = '<div class="user-heading"><span></span></div><div class="user-dot"></div>'
+    element.innerHTML = '<div class="user-heading"><i class="pi pi-chevron-up" aria-hidden="true"></i></div><div class="user-dot"></div>'
     userArrow = element.querySelector('.user-heading')
     userMarker = new Marker({ element }).setLngLat([props.position.longitude, props.position.latitude]).addTo(map)
   } else {
@@ -119,7 +119,7 @@ function startDraft(coordinates: { latitude: number; longitude: number }) {
   actions.append(cancel, confirm)
   popupContent.append(actions)
   marker.setPopup(new Popup({ offset: 28, closeButton: true }).setDOMContent(popupContent))
-  element.addEventListener('click', () => marker.togglePopup())
+  marker.togglePopup()
   draftMarker = marker
   map.flyTo({ center: [coordinates.longitude, coordinates.latitude], zoom: Math.max(map.getZoom(), 18), duration: 650 })
 }
@@ -185,7 +185,7 @@ onBeforeUnmount(() => {
 .maplibregl-map { width: 100%; height: 100%; min-height: 100%; }
 .user-location-marker { position: relative; width: 54px; height: 54px; pointer-events: none; }
 .user-heading { position: absolute; inset: 0; transform-origin: 50% 50%; transition: transform 80ms linear; }
-.user-heading span { position: absolute; left: 19px; top: -21px; width: 16px; height: 38px; background: linear-gradient(#1c78ff, transparent); clip-path: polygon(50% 0, 100% 100%, 50% 70%, 0 100%); }
+.user-heading .pi { position: absolute; left: 50%; top: -13px; color: #1c78ff; font-size: 22px; filter: drop-shadow(0 0 2px white) drop-shadow(0 1px 2px #0005); transform: translateX(-50%); }
 .user-dot { position: absolute; left: 17px; top: 17px; width: 20px; height: 20px; border: 4px solid white; border-radius: 50%; background: #1c78ff; box-shadow: 0 2px 10px #0005; }
 .draft-tree-marker { width: 48px; height: 48px; padding: 0; border: 3px solid white; border-radius: 2px; background: white; box-shadow: 0 2px 8px #0006; cursor: grab; }
 .draft-tree-marker:active { cursor: grabbing; }
